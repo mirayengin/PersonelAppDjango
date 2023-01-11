@@ -2,6 +2,8 @@ from django.urls import path, include
 from rest_framework import routers
 from .views import *
 from rest_framework.routers import Route, DynamicRoute, SimpleRouter
+
+
 class CustomReadOnlyRouter(SimpleRouter):
     """
     A router for read-only APIs, which doesn't use trailing slashes.

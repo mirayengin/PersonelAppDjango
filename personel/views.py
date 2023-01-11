@@ -19,7 +19,7 @@ class DepartmantGetMVS(ReadOnlyModelViewSet):
     #     return personals
     # Respons içerisinde List Comprehensions kullanıldı.
     # path.students.all() içindeki students model içerisindeki related_name='students'dan geliyor.
-class DepartmantDinamicMVS(ReadOnlyModelViewSet):
-    queryset = Department.objects.all()
+class DepartmantDinamicMVS(DepartmantGetMVS):
+    # queryset = Department.objects.all()
     serializer_class = DepartmantDinamicSerializer
     lookup_field = 'name'  # dinamic field için.
