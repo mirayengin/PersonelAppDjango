@@ -2,9 +2,11 @@ from rest_framework import serializers
 from .models import *
 class PersonalSerializer(serializers.ModelSerializer):
     days_since_joined = serializers.SerializerMethodField()
+    created_user = serializers.StringRelatedField()
+    # created_user_id = serializers.StringRelatedField()
     class Meta:
         model = Personal
-        fields = ('id', "days_since_joined", 'first_name', 'last_name', 'is_staff', 'title', 'gender', 'salary', 'start_date', 'department')
+        fields = ('id', "days_since_joined", 'first_name', 'last_name', 'is_staff', 'title', 'gender', 'salary', 'start_date', 'department','created_user')
     def get_days_since_joined(self, obj):
         import datetime
         current_time = datetime.datetime.now()
@@ -33,6 +35,10 @@ class PersonalSerializer(serializers.ModelSerializer):
         representation['gender'] = dict(Personal.GENDERS)[representation['gender']]
         representation['title'] = dict(Personal.TITLES)[representation['title']]
         return representation
+
+    def create(self, validated_data):
+        validated_data['created_user_id'] = self.contex['request'].user.id
+        return super().create(validated_data)
 
 
 class DepartmentSerializer(serializers.ModelSerializer):
