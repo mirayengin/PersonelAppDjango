@@ -51,6 +51,9 @@ class DepartmentSerializer(serializers.ModelSerializer):
         # fields = ('id', 'name', 'personal_count', 'personals')
     def get_personal_count(self, obj):
         return obj.personals.count()
+    
+
+    
 class DepartmantDinamicSerializer(serializers.ModelSerializer):
     personal_count = serializers.SerializerMethodField()
     personals = PersonalSerializer(many=True, required=True)  #! releated_name den geldi buraya
